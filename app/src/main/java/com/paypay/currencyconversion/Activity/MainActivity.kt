@@ -100,30 +100,26 @@ class MainActivity : BaseActivity() {
 
                 MyApplication.getProgressDialog().show()
 
+                
                 var ref = Hawk.get(MyApplication.CURRENCIES,  HashMap<String, String>())
                 val treeMap = TreeMap<String, String>()
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    ref.forEach {
-                            k, v ->
-                        println("$k = $v")
-                        treeMap.put(k, v);
-                    }
-                }
+                for ((k, v) in ref) 
+                    treeMap.put(k, v);
+                    
                 Handler().postDelayed({
                     CurrenciesUI(treeMap, this)
                 }, 1000)
 
+                
+                
                 var ref2 = Hawk.get(MyApplication.QOUTES,  HashMap<String, String>())
                 val treeMap2 = TreeMap<String, String>()
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    ref2.forEach {
-                            k, v ->
-                        println("$k = $v")
-                        treeMap2.put(k, v);
-                    }
-                }
+                for ((k, v) in ref2) 
+                    treeMap2.put(k, v);
+                
+
                 Handler().postDelayed({
                     RatesUI(treeMap2, this)
                     MyApplication.getProgressDialog().cancel()
@@ -132,6 +128,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    
     private fun getIndex(spinner: Spinner, myString: String): Int {
         var index = 0
 
